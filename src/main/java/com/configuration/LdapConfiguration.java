@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
-import org.springframework.security.ldap.authentication.BindAuthenticator;
-import org.springframework.security.ldap.search.FilterBasedLdapUserSearch;
 
 @Configuration
 public class LdapConfiguration {
@@ -36,12 +34,5 @@ public class LdapConfiguration {
     @Bean
     public LdapTemplate ldapTemplate() {
         return new LdapTemplate(contextSource());
-    }
-
-    @Bean
-    public BindAuthenticator bindAuthenticator() {
-        BindAuthenticator bindAuthenticator = new BindAuthenticator(contextSource());
-        bindAuthenticator.setUserSearch(new FilterBasedLdapUserSearch(ldapBase, "(uid={0})", contextSource()));
-        return bindAuthenticator;
     }
 }
